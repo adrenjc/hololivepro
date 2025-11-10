@@ -1,19 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { LanguageOption, NavLink } from "@/data/siteData";
+import { BannerCard, NavLink } from "@/data/siteData";
 import { GlobalNav } from "./GlobalNav";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 
 type HeaderProps = {
   navLinks: NavLink[];
-  languages: LanguageOption[];
+  secondaryLinks: NavLink[];
+  legalLinks: NavLink[];
+  promoBanners: BannerCard[];
 };
 
-export const Header = ({ navLinks, languages }: HeaderProps) => {
+export const Header = ({
+  navLinks,
+  secondaryLinks,
+  legalLinks,
+  promoBanners,
+}: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useLockBodyScroll(isOpen);
+
+  const toggleNav = () => setIsOpen((prev) => !prev);
+  const closeNav = () => setIsOpen(false);
 
   return (
     <header className="app-header">
@@ -48,9 +58,17 @@ export const Header = ({ navLinks, languages }: HeaderProps) => {
           </ul>
           <div
             className={`nav_trigger_outer ${isOpen ? "active" : ""}`}
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={toggleNav}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleNav();
+              }
+            }}
             role="button"
+            tabIndex={0}
             aria-label="Toggle navigation"
+            aria-expanded={isOpen}
           >
             <div className="nav_trigger" />
           </div>
@@ -58,9 +76,11 @@ export const Header = ({ navLinks, languages }: HeaderProps) => {
       </div>
       <GlobalNav
         navLinks={navLinks}
-        languages={languages}
+        secondaryLinks={secondaryLinks}
+        legalLinks={legalLinks}
+        promoBanners={promoBanners}
         isOpen={isOpen}
-        onNavigate={() => setIsOpen(false)}
+        onNavigate={closeNav}
       />
     </header>
   );

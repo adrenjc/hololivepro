@@ -7,8 +7,9 @@ import "swiper/css/pagination";
 import {
   bannerCards,
   heroSlides,
-  languages,
   navLinks,
+  navLegalLinks,
+  navSecondaryLinks,
   newsItems,
   socialGroups,
   talentGroups,
@@ -27,7 +28,12 @@ export default function HomePage() {
   return (
     <>
       <LoadingOverlay />
-      <Header navLinks={navLinks} languages={languages} />
+      <Header
+        navLinks={navLinks}
+        secondaryLinks={navSecondaryLinks}
+        legalLinks={navLegalLinks}
+        promoBanners={bannerCards}
+      />
       <main className="top_main">
         <HeroSection slides={heroSlides} />
         <AboutSection />

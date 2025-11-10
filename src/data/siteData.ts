@@ -5,12 +5,53 @@ export type NavLink = {
 }
 
 export const navLinks: NavLink[] = [
-  { label: "关于我们", href: "#top_about" },
-  { label: "成员阵容", href: "#top_talent" },
-  { label: "最新资讯", href: "#top_news" },
+  { label: "关于", href: "#top_about" },
+  { label: "成员", href: "#top_talent" },
+  { label: "资讯", href: "#top_news" },
   {
-    label: "试镜招募",
+    label: "试镜",
+    href: "https://audition.hololivepro.com/",
+    external: true,
+  },
+]
+
+export const navSecondaryLinks: NavLink[] = [
+  {
+    label: "协作",
     href: "https://hololivepro.com/collaboration",
+    external: true,
+  },
+  {
+    label: "支持广告",
+    href: "https://hololivepro.com/support_advertising",
+    external: true,
+  },
+  {
+    label: "官方商店",
+    href: "https://shop.hololivepro.com/",
+    external: true,
+  },
+  {
+    label: "HOLODULE",
+    href: "https://schedule.hololive.tv/",
+    external: true,
+  },
+]
+
+export const navLegalLinks: NavLink[] = [
+  {
+    label: "概要",
+    href: "https://hololivepro.com/request-to-minors/",
+    external: true,
+  },
+  {
+    label: "隐私策略",
+    href: "https://hololivepro.com/terms/",
+    external: true,
+  },
+  {
+    label: "常见问题解答",
+    href: "https://hololivepro.com/question/",
     external: true,
   },
 ]

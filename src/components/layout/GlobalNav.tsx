@@ -1,91 +1,103 @@
-import { LanguageOption, NavLink } from "@/data/siteData";
+import Image from "next/image";
+
+import { BannerCard, NavLink } from "@/data/siteData";
 
 type GlobalNavProps = {
   navLinks: NavLink[];
-  languages: LanguageOption[];
+  secondaryLinks: NavLink[];
+  legalLinks: NavLink[];
+  promoBanners: BannerCard[];
   isOpen: boolean;
   onNavigate: () => void;
 };
 
+const renderLink = (link: NavLink, onNavigate: () => void) => {
+  const linkContent = (
+    <>
+      {link.label}
+      {link.external && <span className="ex_icon icon_black" />}
+    </>
+  );
+
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onNavigate}
+      >
+        {linkContent}
+      </a>
+    );
+  }
+
+  return (
+    <a href={link.href} onClick={onNavigate}>
+      {linkContent}
+    </a>
+  );
+};
+
 export const GlobalNav = ({
   navLinks,
-  languages,
+  secondaryLinks,
+  legalLinks,
+  promoBanners,
   isOpen,
   onNavigate,
 }: GlobalNavProps) => (
-  <div id="global_nav" className={isOpen ? "active" : ""}>
+  <div
+    id="global_nav"
+    className={isOpen ? "active" : ""}
+    aria-hidden={!isOpen}
+  >
+    <div className="nav_bg" role="presentation" onClick={onNavigate} />
     <div className="menu_box">
-      <div className="lang_btn">
+      <nav className="left">
+        <ul className="txt_nav nav_01">
+          {navLinks.map((link) => (
+            <li key={`drawer-${link.label}`}>
+              {renderLink(link, onNavigate)}
+            </li>
+          ))}
+        </ul>
+        <ul className="txt_nav nav_02">
+          {secondaryLinks.map((link) => (
+            <li key={`drawer-secondary-${link.label}`}>
+              {renderLink(link, onNavigate)}
+            </li>
+          ))}
+        </ul>
+        <ul className="txt_nav nav_03">
+          {legalLinks.map((link) => (
+            <li key={`drawer-legal-${link.label}`}>
+              {renderLink(link, onNavigate)}
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="right">
         <ul>
-          {languages.map((lang) => (
-            <li key={lang.code}>
+          {promoBanners.map((banner) => (
+            <li key={`drawer-banner-${banner.id}`}>
               <a
-                href={lang.href}
-                className={lang.active ? "current" : undefined}
+                href={banner.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={onNavigate}
               >
-                {lang.label}
+                <Image
+                  src={banner.image}
+                  alt={banner.label}
+                  width={banner.width}
+                  height={banner.height}
+                />
               </a>
             </li>
           ))}
         </ul>
       </div>
-      <ul className="txt_nav nav_01">
-        {navLinks.map((link) => (
-          <li key={`drawer-${link.label}`}>
-            {link.external ? (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={onNavigate}
-              >
-                {link.label}
-                <span className="ex_icon icon_black" />
-              </a>
-            ) : (
-              <a href={link.href} onClick={onNavigate}>
-                {link.label}
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
-      <ul className="txt_nav nav_02">
-        <li>
-          <a
-            href="https://hololivepro.com/collaboration"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onNavigate}
-          >
-            合作洽谈
-            <span className="ex_icon icon_black" />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://hololivepro.com/support_advertising"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onNavigate}
-          >
-            广告支持
-            <span className="ex_icon icon_black" />
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://schedule.hololive.tv/"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onNavigate}
-          >
-            HOLODULE
-            <span className="ex_icon icon_black" />
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
 );

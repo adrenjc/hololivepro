@@ -147,10 +147,11 @@ ul {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin-left: 0.4rem;
+  margin-left: 0;
   border-right: 2px solid #fff;
   border-top: 2px solid #fff;
   transform: rotate(45deg);
+  align-self: center;
 }
 
 .ex_icon.icon_black {
@@ -755,16 +756,17 @@ ul {
 
 .nav_box {
   position: absolute;
-  right: 0;
+  right: 20px;
   display: flex;
   align-items: center;
+  gap: 16px;
   font-family: var(--font_02);
 }
 
 .nav_box .nav_list {
   display: flex;
   background-color: #ffffffd1;
-  margin-right: 20px;
+  margin-right: 0;
   padding: 4px 20px;
   border-radius: 50px;
   border: 2px solid #fff;
@@ -778,7 +780,9 @@ ul {
 }
 
 .nav_box .nav_list li a {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
   padding: 0 1.3em;
   color: #212121;
 }
@@ -793,6 +797,7 @@ ul {
   margin-right: 20px;
   border-radius: 50px;
   border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.85);
   overflow: hidden;
 }
 
@@ -809,7 +814,7 @@ ul {
   height: clamp(41px, 9vw, 30px);
   width: 57px;
   display: flex;
-  background: #ffffffb5;
+  background: transparent;
   align-items: center;
   justify-content: center;
   font-weight: bold;
@@ -820,6 +825,9 @@ ul {
   display: block;
   padding: 7px 0;
   color: #212121;
+  text-align: center;
+  font-weight: 700;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .lang_btn .bogo-language-name a.current {
@@ -831,88 +839,186 @@ ul {
   position: relative;
   z-index: 10000;
   cursor: pointer;
-  height: 40px;
-  display: none;
+  height: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
 }
 
 .nav_trigger {
   position: relative;
-  width: 40px;
+  width: 32px;
   height: 2px;
   background-color: #393939;
-  margin-right: 20px;
-  top: 10px;
-  transition: 0.2s;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
 }
 
 .nav_trigger::before,
 .nav_trigger::after {
   content: "";
   position: absolute;
-  right: 0;
+  left: 0;
+  width: 100%;
   height: 2px;
   background-color: #393939;
+  border-radius: 2px;
+  transition: transform 0.2s ease, top 0.2s ease, width 0.2s ease;
 }
 
 .nav_trigger::before {
-  width: 30px;
-  top: 10px;
+  top: -8px;
 }
 
 .nav_trigger::after {
-  width: 20px;
-  top: 20px;
+  top: 8px;
+  width: 70%;
 }
 
 .nav_trigger_outer.active .nav_trigger {
-  transform: rotate(42deg);
-  width: 30px;
+  background-color: transparent;
 }
 
 .nav_trigger_outer.active .nav_trigger::before {
-  transform: rotate(275deg);
   top: 0;
+  transform: rotate(45deg);
 }
 
 .nav_trigger_outer.active .nav_trigger::after {
-  opacity: 0;
+  top: 0;
+  width: 100%;
+  transform: rotate(-45deg);
 }
 
 #global_nav {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.98);
   z-index: 900;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-  padding: 100px 8% 60px;
-  display: flex;
-  flex-direction: column;
+  transition: opacity 0.4s ease;
 }
 
-#global_nav.active {
-  opacity: 1;
-  pointer-events: auto;
+#global_nav .nav_bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(248, 248, 248, 0.98);
 }
 
 #global_nav .menu_box {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  position: relative;
+  margin: 60px auto;
+  width: min(1200px, 88vw);
+  padding: 40px 0 60px;
+  display: flex;
+  gap: 48px;
+  max-height: calc(100vh - 120px);
+  z-index: 1;
 }
 
-#global_nav .txt_nav {
+#global_nav .menu_box .left,
+#global_nav .menu_box .right {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 16px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#global_nav .menu_box .left::-webkit-scrollbar,
+#global_nav .menu_box .right::-webkit-scrollbar {
+  display: none;
+}
+
+#global_nav .menu_box .left .lang_btn {
+  width: 120px;
+  margin-bottom: 24px;
+}
+
+#global_nav .menu_box .left .txt_nav {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 32px;
   font-family: var(--font_02);
 }
 
-#global_nav .txt_nav a {
-  font-size: 1.25rem;
+#global_nav .menu_box .left .txt_nav li a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   color: #063f5c;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#global_nav .menu_box .left .txt_nav li a::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 0;
+  height: 0.4em;
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  transform: translateY(-50%);
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+#global_nav .menu_box .left .txt_nav.nav_01 li a {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+#global_nav .menu_box .left .txt_nav.nav_02 li a {
+  font-size: 1.25rem;
   font-weight: 600;
+}
+
+#global_nav .menu_box .left .txt_nav.nav_03 li a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+#global_nav .menu_box .left .txt_nav li a:hover {
+  transform: translateX(8px);
+}
+
+#global_nav .menu_box .left .txt_nav li a:hover::before {
+  width: 100%;
+}
+
+#global_nav .menu_box .right ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+#global_nav .menu_box .right li {
+  width: calc(50% - 9px);
+}
+
+#global_nav .menu_box .right img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#global_nav .menu_box .right a:hover img {
+  transform: translateY(-4px);
+  opacity: 0.85;
+}
+
+#global_nav.active {
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .fade_b_cont {
@@ -1015,6 +1121,21 @@ footer .foot_copy {
   }
   .nav_trigger_outer {
     display: inline-flex;
+  }
+  #global_nav .menu_box {
+    flex-direction: column;
+    width: 88vw;
+    padding: 40px 0 80px;
+    max-height: calc(100vh - 80px);
+  }
+  #global_nav .menu_box .left,
+  #global_nav .menu_box .right {
+    width: 100%;
+    max-height: none;
+    padding-right: 0;
+  }
+  #global_nav .menu_box .right li {
+    width: 100%;
   }
   #top_audition .a_contents .container {
     flex-direction: column;
