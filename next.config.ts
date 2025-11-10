@@ -1,7 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "hololivepro.com",
+      },
+      {
+        protocol: "https",
+        hostname: "hololive.hololivepro.com",
+      },
+      {
+        protocol: "https",
+        hostname: "holostars.hololivepro.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
