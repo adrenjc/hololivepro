@@ -1,18 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_SC, Rubik } from "next/font/google";
 import "./globals.css";
-
-const notoSans = Noto_Sans_SC({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  variable: "--font-body",
-});
-
-const rubik = Rubik({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-heading",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hololivepro.com"),
@@ -39,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hans">
-      <body className={`${notoSans.variable} ${rubik.variable} antialiased`}>
+      <body className="antialiased">
         {children}
       </body>
     </html>

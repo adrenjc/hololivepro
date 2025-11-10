@@ -2,7 +2,7 @@ import Image from "next/image";
 import { NewsItem } from "@/data/siteData";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 type NewsSectionProps = {
   items: NewsItem[];
@@ -26,10 +26,12 @@ export const NewsSection = ({ items }: NewsSectionProps) => {
         </h2>
         <div className="four news news-grid">
           <Swiper
-            modules={[Navigation, Pagination]}
+            modules={[Pagination]}
             spaceBetween={20}
-            navigation
             pagination={{ clickable: true }}
+            touchStartPreventDefault={false}
+            simulateTouch={true}
+            allowTouchMove={true}
             breakpoints={{
               300: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
